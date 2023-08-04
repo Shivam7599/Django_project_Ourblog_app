@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}
+  Edit blog post-Ourblog
+{% endblock %}
+{% block body %}
+<div style="background-color: #c2cccc;"><br>
+  <h1 class="d-flex justify-content-center align-items-center">Edit Blog Post</h1>
+  <div>
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column align-items-center">
+      <div class="d-flex justify-content-center align-items-center">
+  {% if user.is_authenticated %}
+  {% if user.id == object.author.id %}
+      <div class="container form-group">
+        <form action="" method="post">
+          {% csrf_token %}
+          {{form.media}}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+      </div>
+      {% else %}
+      <Strong>You are not allowed here!</Strong>
+  {% endif %}
+  {% endif %}
+</div>
+</div>
+</div>
+<br><br><br><br><br><br>
+</div>
+{% endblock %}

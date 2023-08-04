@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}
+  Create a new Profile page-Ourblog
+{% endblock %}
+{% block body %}
+<div style="background-color: #c2cccc;"><br>
+  <h1 class="d-flex justify-content-center align-items-center">Create a Profile page</h1>
+  <div>
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column align-items-center">
+      <div class="d-flex justify-content-center align-items-center">
+  {% if user.is_authenticated %}
+    <h1></h1>
+    <div class="container form-group">
+      <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Create Profile</button>
+      </form>
+    </div>
+
+    <script>
+      var name = "{{user.id}}";
+      document.getElementById("decision").value = name;
+    </script>
+  {% else %}
+    <Strong>You are not allowed here!</Strong>
+  {% endif %}
+</div>
+</div>
+</div>
+<br><br>
+</div>
+{% endblock %}

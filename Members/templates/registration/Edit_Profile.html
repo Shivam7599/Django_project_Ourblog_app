@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Edit_profile-Ourblog{% endblock title %}
+{% block body %}
+<div style="background-color: #c2cccc;"><br>
+  <h1 class="d-flex justify-content-center align-items-center">Edit_profile_page</h1>
+  <div><br>
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column align-items-center">
+      <div class="d-flex justify-content-center align-items-center">
+  <div class="container form-group">
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn btn-primary"><a class="nav-link" href="{% url 'Change_pass' %}">Change_pass</a></button>
+      <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+  </div>
+</div>
+</div>
+</div>
+<br><br><br>
+</div>
+{% endblock %}

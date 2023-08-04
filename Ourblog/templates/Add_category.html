@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}
+  Create a new blog Category-Ourblog
+{% endblock %}
+{% block body %}
+<div style="background-color: #c2cccc;"><br><br><br><br><br><br>
+<h1 class="d-flex justify-content-center align-items-center">Add Blog Category</h1>
+<div><br><br>
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column align-items-center">
+    <div class="d-flex justify-content-center align-items-center">
+  {% if user.is_authenticated %}
+    <div class="container form-group">
+      <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-sm btn-light fw-bold border-white bg-blue">Add Category</button>
+      </form>
+    </div>
+  {% else %}
+    <Strong>You are not allowed here!</Strong>
+  {% endif %}
+</div>
+</div>
+</div>
+<br><br><br><br><br><br>
+</div>
+{% endblock %}

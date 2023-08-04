@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %} Categories {% endblock title %}
+{% block body %}
+    <div style="background-color: #c2cccc;">
+      <br>
+      {% if  category_post %}
+      <div class="container">
+        <h1 class="fs-2 text-body-emphasis d-flex justify-content-center align-items-center"><u>Display by ~ Categories</u></h1><hr>
+    <h1>{{ cats }}</h1> <br>
+      </div>
+      <div class="container ">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">    
+        {% for post in category_post %}
+        <div class="col ">
+          <div class="card shadow-sm d-flex justify-content-center " style="background-color: #c2cccc;">
+            <div class="card-body "><br>
+              <h3 class="text-center"><a href="{% url 'article-detail' post.pk %}">{{post.title}}</a></h3> 
+              <small>By-- <i>
+                {{post.author.first_name}} 
+                {{post.author.last_name}} 
+              </i></small> <br> <br>
+              <div class="container"><p class="card-text">{{post.snippet|slice:"0:150"|safe}}...</p></div><br>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  {%  if user.is_authenticated  %}
+                  {% if user.id == post.author.id %}
+                  <a href="{% url 'article-detail' post.pk %}"><button type="button" class="btn btn-sm btn-outline-secondary me-2">View</button></a>
+                  <a href="{% url 'Update' post.pk %}"><button type="button" class="btn btn-sm btn-outline-secondary me-2">Edit</button></a>
+                  <a href="{% url 'delete' post.pk %}"><button type="button" class="btn btn-sm btn-outline-secondary me-2">Delete</button></a>
+                  {% endif %} 
+                  {% endif %} 
+                </div>
+                <small class="text-body-secondary"><i>{{post.Post_date}}</i></small>
+              </div>
+            </div>
+            <br>
+          </div>
+        </div>
+{% endfor %}  
+{% else %}
+<strong>Sorry, We don't have information about that!
+    We will notify you about that soon!
+</strong>
+
+{% endif %}
+</div>
+</div>
+<br>
+</div>
+
+{% endblock body %}

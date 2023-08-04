@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Change Password-Ourblog{% endblock title %}
+{% block body %}
+<div style="background-color: #c2cccc;"><br>
+  <h1 class="d-flex justify-content-center align-items-center">Change Password-Page</h1>
+  <div><br>
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column align-items-center">
+      <div class="d-flex justify-content-center align-items-center">
+  <div class="container form-group">
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+  </div>
+</div>
+</div>
+</div>
+<br><br><br>
+</div>
+{% endblock %}

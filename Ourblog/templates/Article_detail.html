@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div style="background-color: #c2cccc;">
+<div class="container center" >
+<br><br>
+{% comment %} <h3 class="d-flex justify-content-center align-items-center"><u>Welcome to the Article Page</u></h3><br> {% endcomment %}
+<div class="d-flex justify-content-end align-items-center">
+    <ul>
+    '''Current User means who logged on here'''
+    <li>Current User : {{user.id}}/{{user.first_name}}{{user.last_name}}</li>
+    <li>Post author :  {{ object.author.id}}/{{object.author.first_name}}{{object.author.last_name}}</li>
+    </ul>
+</div>
+<header>
+    <div>
+    <h1 class="d-flex justify-content-center align-items-center">{{ object.title }}</h1>
+    </div>
+    <div class="container">
+        <div class="d-flex justify-content-end align-items-center">
+            By-- <strong >{{ object.author.first_name}}{{ object.author.last_name}}</strong>
+        </div>
+        <small class="d-flex justify-content-end align-items-center"><i>~{{object.Post_date}}</i></small>
+    </div>
+</header>
+<div>
+<div class="d-flex align-items-center ">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column align-items-center">
+        <main class="px-3 d-flex w-100 h-100 p-3 mx-auto flex-column align-items-center">
+        <div class="d-flex justify-content-center align-items-center">
+            {% if object.header_image %}
+            <img src="{{ object.header_image.url}}">
+            {% endif %}
+        </div>
+            <p class="lead text-center"></p>
+            <p class="d-flex justify-content-end align-items-center">
+            {{ object.body|safe }}
+            </p>
+            <p class="lead">
+            {%  if user.is_authenticated  %}
+            <span>
+            <form action="{% url 'like_post' object.pk %}" method="post"> 
+                {% csrf_token %}
+                {% if liked %}
+                <button type="submit" name="post_id" value="{{ object.id }} " class="btn btn-sm btn-light fw-bold border-white bg-blue">Unlike</button>
+                {% else %}
+                <button type="submit" name="post_id" value="{{ object.id }} " class="btn btn-sm btn-light fw-bold border-white bg-white">like</button>
+                {% endif %}
+                {{total_likes}}-likes
+            </form>
+            {% else %}
+                <small><a href="{% url 'login' %}">Login to like the post</a></small>
+            {% endif %}
+          </p>
+        </main>
+      </div>
+</div>
+        {%  if user.is_authenticated  %}
+        {% if user.id == object.author.id %}    
+        <a href="{% url 'Update' object.pk %}" class=" me-2">Edit</a>
+        <a href="{% url 'delete' object.pk %}" class=" me-2">Delete</a>
+        {% endif %}
+        {% endif %}
+    </div><hr>
+    <div class="cover-container">
+        <div class="card text-bg-tertiary mb-3" style="max-width: auto;">
+            <div class="row g-0">
+              <div class="col-md-2">
+                {% if object.author.profile.profilepic %}
+                    <img src="{{ object.author.profile.profilepic.url }}" class="img-fluid rounded" style="height: 300px; width: 200px;" alt="...">
+                {% else %}
+                    <img src="{% static 'Ourblog/images/img.jpg' %}" class="img-fluid rounded" style="height: 300px; width: 200px;" alt="...">
+                {% endif %}
+            </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <a href="{% url 'show_user_profile' object.author.profile.id %}">
+                    <h5 class="card-title"><br>{{ object.author.first_name }} {{ object.author.last_name }}</h5>
+                  </a><br><br>
+                  <p class="card-text"><small class="text-body-secondary">
+                    {% if object.author.profile.web_url %}
+                    <a href="{{ object.author.profile.web_url }}">Website</a> ||
+                    {% endif %}
+                    {% if object.author.profile.fb_url %}
+                    <a href="{{ object.author.profile.fb_url }}">Facebook</a> ||
+                    {% endif %}
+                    {% if object.author.profile.twitter_url %}
+                    <a href="{{ object.author.profile.twitter_url }}">twitter</a> ||
+                    {% endif %}
+                    {% if object.author.profile.insta_url %}
+                    <a href="{{ object.author.profile.insta_url }}">Instagram</a> ||
+                    {% endif %}
+                    {% if object.author.profile.pinterest_url %}
+                    <a href="{{ object.author.profile.pinterest_url }}">pinterest</a> ||
+                    {% endif %}
+                    {% if object.author.profile.github_url %}
+                    <a href="{{ object.author.profile.github_url }}">Github</a> ||
+                    {% endif %}
+
+                  </small></p>
+                  <p class="card-text">{{ object.author.profile.bio }}
+                    <br><br><button>contact</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+    </div>
+    <hr>
+    <h3>Comments...</h3>
+    <a href="{% url 'Add_comment' object.pk %}">Add Comment...</a>
+    <ul>
+        {% if not object.comments.all %}
+        No comments Yet... <a href="{% url 'Add_comment' object.pk %}">Add one</a>
+        {% else %}
+        {% for comment in object.comments.all%}
+               <li> <strong>{{ comment.name }}/</strong>
+                <small>{{ comment.date_added }}</small>
+               <br> {{comment.body}} <br><br>
+            </li>
+        {% endfor %}
+        {% endif %}
+        <br>
+    </ul>
+</div>
+</div>
+{% endblock %}

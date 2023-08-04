@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Delete blog post-Ourblog{% endblock  %}
+{% block body %}
+<div style="background-color: #c2cccc;"><br><br>
+  <h1 class="d-flex justify-content-center align-items-center">Delete Blog Post</h1>
+  <div><br>
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column align-items-center">
+      <div class="d-flex justify-content-center align-items-center">
+    {%  if user.is_authenticated  %}
+    {% if user.id == object.author.id %}
+      <h2>Delete: {{object.title}} </h2>
+      <div class="d-flex justify-content-center">
+      <div class="container form-group">
+      <form action="" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Delete Post!</button>
+      </form>
+      </div>
+    </div>
+    {% else %}
+    <Strong>You are not allowed here!</Strong>
+    {% endif %}
+    {% endif %}
+</div>
+</div>
+</div>
+<br><br><br><br><br><br>
+</div>
+{% endblock %}

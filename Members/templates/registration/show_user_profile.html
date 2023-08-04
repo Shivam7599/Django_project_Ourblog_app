@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div style="background-color: #c2cccc;">
+    <div class="container center" >
+    <h1>User Profile...</h1>
+      {% if user.is_authenticated %}{% endif %}
+    <div class="cover-container d-flex justify-content-center align-items-center">
+        <div class="card text-bg-tertiary mb-3" style="max-width: auto;">
+            <div class="row g-0">
+              <div class="col-md-2">
+                {% if page_user.profilepic %}
+                    <img src="{{ page_user.profilepic.url }}" class="img-fluid rounded" style="height: 300px; width: 200px;" alt="...">
+                {% else %}
+                    <img src="{% static 'Ourblog/images/img.jpg' %}" class="img-fluid rounded" style="height: 300px; width: 200px;" alt="...">
+                {% endif %}
+            </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title"><br>{{ page_user.author_name.first_name }} {{ page_user.author_name.last_name }}</h5><br><br>
+                  <p class="card-text"><small class="text-body-secondary">
+                    {% if page_user.web_url %}
+                    <a href="{{ page_user.web_url }}">Website</a> ||
+                    {% endif %}
+                    {% if page_user.fb_url %}
+                    <a href="{{ page_user.fb_url }}">Facebook</a> ||
+                    {% endif %}
+                    {% if page_user.twitter_url %}
+                    <a href="{{ page_user.twitter_url }}">twitter</a> ||
+                    {% endif %}
+                    {% if page_user.insta_url %}
+                    <a href="{{ page_user.insta_url }}">Instagram</a> ||
+                    {% endif %}
+                    {% if page_user.pinterest_url %}
+                    <a href="{{ page_user.pinterest_url }}">pinterest</a> ||
+                    {% endif %}
+                    {% if page_user.github_url %}
+                    <a href="{{ page_user.github_url }}">Github</a> ||
+                    {% endif %}
+
+                  </small></p>
+                  <p class="card-text">{{ page_user.bio }}
+                    <br><br><button>contact</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+
+{% endblock %}
